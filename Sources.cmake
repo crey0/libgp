@@ -18,7 +18,6 @@ SET(LIBGP_SRC
   src/sampleset.cc
   src/rprop.cc
   src/input_dim_filter.cc
-  src/cg.cc
 )
 
 SET(LIBGP_INTERFACES 

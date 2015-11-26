@@ -17,6 +17,7 @@ namespace libgp {
   const double log2pi = log(2*M_PI);
   const double initial_L_size = 1000;
 
+
   GaussianProcess::GaussianProcess (size_t input_dim, std::string covf_def)
   {
     // set input dimensionality
@@ -184,6 +185,16 @@ namespace libgp {
 #endif
   }
 
+  void GaussianProcess::get_pattern(size_t i, double x[], double * y)
+  {
+    Eigen::VectorXd _x = sampleset->x(i);
+    size_t n = this->get_input_dim();
+    for (size_t j=0; j<n;j++){
+      x[j] = _x(j);
+    }
+    *y = sampleset->y(i);
+  }
+
   bool GaussianProcess::set_y(size_t i, double y) 
   {
     if(sampleset->set_y(i,y)) {
@@ -278,5 +289,28 @@ namespace libgp {
     }
 
     return grad;
+  }
+
+  Eigen::MatrixXd GaussianProcess::K()
+  {
+    compute();
+    update_alpha();
+    size_t n = sampleset->size();
+    Eigen::MatrixXd ret;
+    auto L_ = L.topLeftCorner(n, n).triangularView<Eigen::Lower>();
+    L_.transpose().evalToLazy(ret);
+    ret = L_*ret;
+    return ret;
+  }
+
+  Eigen::MatrixXd GaussianProcess::K_inv()
+  {
+    compute();
+    update_alpha();
+    size_t n = sampleset->size();
+    Eigen::MatrixXd W = Eigen::MatrixXd::Identity(n, n);
+    L.topLeftCorner(n, n).triangularView<Eigen::Lower>().solveInPlace(W);
+    L.topLeftCorner(n, n).triangularView<Eigen::Lower>().transpose().solveInPlace(W);
+    return W;
   }
 }

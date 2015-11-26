@@ -58,6 +58,7 @@ namespace libgp {
      */
     void add_pattern(const double x[], double y);
 
+    void get_pattern(size_t i, double x[], double * y);
 
     bool set_y(size_t i, double y);
 
@@ -75,7 +76,15 @@ namespace libgp {
 
     double log_likelihood();
     
-    Eigen::VectorXd log_likelihood_gradient();
+    Eigen::VectorXd log_likelihood_gradient(); 
+
+    /** Returns the covariance matrix of the sampleset*/
+    Eigen::MatrixXd K();
+
+    /** Returns the inverse covariance matrix of the 
+     *sampleset*/
+    Eigen::MatrixXd K_inv();
+
 
   protected:
     

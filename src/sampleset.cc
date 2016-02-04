@@ -36,6 +36,12 @@ namespace libgp {
     assert(inputs.size()==targets.size());
     n = inputs.size();
   }
+
+  void SampleSet::remove(size_t i)
+  {
+    inputs.erase(inputs.begin()+i);
+    targets.erase(targets.begin()+i);
+  }  
   
   const Eigen::VectorXd & SampleSet::x(size_t k)
   {

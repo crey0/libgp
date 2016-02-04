@@ -50,6 +50,8 @@ namespace libgp {
      *  @param x input vector
      *  @return predicted variance */
     virtual double var(const double x[]);
+
+    virtual void predict(const double x[], double *f, double *var);
     
     /** Add input-output-pair to sample set.
      *  Add a copy of the given input-output-pair to sample set.

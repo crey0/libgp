@@ -218,6 +218,12 @@ namespace libgp {
     *y = sampleset->y(i);
   }
 
+  void GaussianProcess::remove_pattern(size_t i)
+  {
+    sampleset->remove(i);
+    cf->loghyper_changed = true;
+  }
+
   bool GaussianProcess::set_y(size_t i, double y) 
   {
     if(sampleset->set_y(i,y)) {

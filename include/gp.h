@@ -66,6 +66,8 @@ namespace libgp {
 
     void get_pattern(size_t i, double x[], double * y);
 
+    void remove_pattern(size_t i);
+
     bool set_y(size_t i, double y);
 
     /** Get number of samples in the training set. */

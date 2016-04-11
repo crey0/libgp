@@ -17,11 +17,6 @@ namespace libgp {
   const double log2pi = log(2*M_PI);
   const double initial_L_size = 1000;
 
-  GaussianProcess::GaussianProcess ()
-  {
-    sampleset = NULL;
-    cf = NULL;
-  }
 
   GaussianProcess::GaussianProcess (size_t input_dim, std::string covf_def)
   {

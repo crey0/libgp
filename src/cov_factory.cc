@@ -12,6 +12,7 @@
 #include "cov_linear_one.h"
 #include "cov_se_ard.h"
 #include "cov_se_iso.h"
+#include "cov_exp_ard.h"
 #include "cov_matern3_iso.h"
 #include "cov_matern5_iso.h"
 #include "cov_rq_iso.h"
@@ -32,6 +33,8 @@ namespace libgp {
     registry["CovRQiso"] = & create_func<CovRQiso>;
     registry["CovSEard"] = & create_func<CovSEard>;
     registry["CovSEiso"] = & create_func<CovSEiso>;
+    registry["CovExpArd"] = & create_func<CovExpArd>;
+    registry["CovExpArdPhi"] = & create_func<CovExpArdPhi>;
     registry["CovSum"] = & create_func<CovSum>;
     registry["CovProd"] = & create_func<CovProd>;
     registry["CovPeriodicMatern3iso"] = & create_func<CovPeriodicMatern3iso>;

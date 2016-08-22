@@ -40,18 +40,16 @@ namespace libgp
     for(size_t i = 0; i < input_dim; ++i) ell(i) = exp(loghyper(i));
     sf2 = exp(2*loghyper(input_dim));
   }
-
-  Eigen::VectorXd CovExpArd::distance(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2)
-  {
-    return (x1-x2);
-  }
   
   std::string CovExpArd::to_string()
   {
     return "CovExpArd";
   }
 
-
+  /**
+     CovExpArdphi
+   **/
+  
   void CovExpArdPhi::setPhi(int phi)
   {
     this->phi = phi;

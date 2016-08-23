@@ -30,6 +30,10 @@ namespace libgp
     auto d = distance(x1, x2).array().square();
     double z = sqrt(d.sum());
     double k = sf2*exp(-z);
+    if (z==0) // avoid segfault when z==0, grad should be 0
+    {
+      z=1;
+    }
     grad.head(input_dim) = ell.array().pow(-3).cwiseProduct(d) / z * k;
     grad(input_dim) = 2.0 * k;
   }

@@ -35,7 +35,7 @@ namespace libgp
   class CovExpArdPhi : public CovExpArd
   {
   public:
-    CovExpArdPhi () : phi(0) {}
+    CovExpArdPhi () : phi(2) {}
     virtual ~CovExpArdPhi () {}
     virtual Eigen::VectorXd distance(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2);
     virtual std::string to_string();

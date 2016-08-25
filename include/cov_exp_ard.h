@@ -25,7 +25,7 @@ namespace libgp
     double get(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2);
     void grad(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2, Eigen::VectorXd &grad);
     void set_loghyper(const Eigen::VectorXd &p);
-    virtual Eigen::VectorXd distance(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2){return x1 - x2;}
+    virtual void componentwise_distance(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2, Eigen::VectorXd & d){d = x1 - x2;}
     virtual std::string to_string();
   private:
     Eigen::VectorXd ell;
@@ -37,7 +37,7 @@ namespace libgp
   public:
     CovExpArdPhi () : phi(2) {}
     virtual ~CovExpArdPhi () {}
-    virtual Eigen::VectorXd distance(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2);
+    virtual void componentwise_distance(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2, Eigen::VectorXd &d);
     virtual std::string to_string();
     int getPhi();
     void setPhi(int phi);

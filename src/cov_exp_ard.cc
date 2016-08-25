@@ -21,13 +21,17 @@ namespace libgp
   
   double CovExpArd::get(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2)
   {  
-    double z = distance(x1, x2).cwiseQuotient(ell).norm();
+    Eigen::VectorXd d(input_dim);
+    componentwise_distance(x1,x2,d);
+    double z = d.cwiseQuotient(ell).norm();
     return sf2*exp(-z);
   }
   
   void CovExpArd::grad(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2, Eigen::VectorXd &grad)
   {
-    auto d = distance(x1, x2).array().square();
+    Eigen::VectorXd dist(input_dim);
+    componentwise_distance(x1, x2, dist);
+    auto d = dist.array().square();
     double z = sqrt(d.sum());
     double k = sf2*exp(-z);
     if (z==0) // avoid segfault when z==0, grad should be 0
@@ -64,11 +68,10 @@ namespace libgp
     return phi;
   }
 
-  Eigen::VectorXd CovExpArdPhi::distance(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2)
+  void CovExpArdPhi::componentwise_distance(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2, Eigen::VectorXd &d)
   {
-    Eigen::VectorXd d = (x1-x2);
+    d = (x1-x2);
     d(phi) = mmod(d(phi) + 180, 360) - 180;
-    return d;
   }
   
   std::string CovExpArdPhi::to_string()

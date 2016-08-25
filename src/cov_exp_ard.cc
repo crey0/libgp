@@ -29,16 +29,16 @@ namespace libgp
   
   void CovExpArd::grad(const Eigen::VectorXd &x1, const Eigen::VectorXd &x2, Eigen::VectorXd &grad)
   {
-    Eigen::VectorXd dist(input_dim);
-    componentwise_distance(x1, x2, dist);
-    auto d = dist.array().square();
+    Eigen::VectorXd d(input_dim);
+    componentwise_distance(x1, x2, d);
+    d = d.cwiseProduct(d);
     double z = sqrt(d.sum());
     double k = sf2*exp(-z);
     if (z==0) // avoid segfault when z==0, grad should be 0
     {
       z=1;
     }
-    grad.head(input_dim) = ell.array().pow(-3).cwiseProduct(d) / z * k;
+    grad.head(input_dim) = ell.array().pow(-3).cwiseProduct(d.array()) / z * k;
     grad(input_dim) = 2.0 * k;
   }
   
